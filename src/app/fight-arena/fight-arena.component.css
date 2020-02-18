@@ -1,7 +1,30 @@
 mat-grid-tile {
-  background: lightblue;
+  background: linear-gradient(#F8F7FC, #CCD6E0);
 }
 
 .title {
   text-align: center;
 }
+
+
+.container {
+  display: inline-block;
+  float: right;
+  background-color: red;
+  width: 50%;
+  height: 50%;
+}
+
+.dot {
+  height: 48px;
+  width: 487px;
+  background-color: #CCD6E0;
+  border-radius: 50%;
+  display: inline-block;
+  -webkit-transform: skewX(-82deg);
+  transform: skewX(7deg);
+  margin-top: 105px;
+  position: absolute;
+  box-shadow: 8px 8px 0px #aaa;
+}
+
