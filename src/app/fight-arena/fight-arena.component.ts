@@ -10,6 +10,7 @@ import Pokemon from '../model/pokemon/pokemon';
 })
 export class FightArenaComponent implements OnInit {
 
+  idInterval : any;
   attacksPokemon1: Array<Attack> = [
     new Attack("Lance-flamme", 50),
     new Attack("Ultralaser", 20),
@@ -22,8 +23,8 @@ export class FightArenaComponent implements OnInit {
     new Attack("Dévorêve", 35),
     new Attack("Vibrobscure", 30)
   ];
-  Attacker: Pokemon = new Pokemon("Dracaufeu", 50, 20, this.attacksPokemon1);
-  Defender: Pokemon = new Pokemon("Ectoplasma", 42, 20, this.attacksPokemon2);
+  Attacker: Pokemon = new Pokemon("Dracaufeu", 50, 100, this.attacksPokemon1);
+  Defender: Pokemon = new Pokemon("Ectoplasma", 42, 100, this.attacksPokemon2);
 
 
   infos_battle : string = "";
@@ -97,28 +98,28 @@ export class FightArenaComponent implements OnInit {
     pokemon.modifyHealth(value);
   }
 
-  launch() {
+  launch() : void {
     this.firstToAttack();
-    while (this.Attacker._pv > 0 && this.Defender._pv > 0) {
+
+    this.idInterval = setInterval(() => {
+    
       let specificAttack = this.Attacker.selectRandomAttack();
-      console.log(this.Attacker._name.toUpperCase() + ' utilise ' + specificAttack._name.toUpperCase());
-      this.infos_battle += this.Attacker._name.toUpperCase() + ' utilise ' + specificAttack._name.toUpperCase() + ' !\n';
+      this.infos_battle += '> ' + this.Attacker._name.toUpperCase() + ' utilise ' + specificAttack._name.toUpperCase() + ' !<br/>';
       specificAttack._damage = this.calculateAttackRealValue(specificAttack);
       this.Defender.hitByAttack(specificAttack);
-      console.log(this.Defender._name.toUpperCase() + ' perd ' + specificAttack._damage + ' PV');
-      this.infos_battle += this.Defender._name.toUpperCase() + ' perd ' + specificAttack._damage + ' PV\n';
+      this.infos_battle += '> ' + this.Defender._name.toUpperCase() + ' perd ' + specificAttack._damage + ' PV <br/>';
 
-      console.log(this.Attacker._name.toUpperCase() + ' PV : ' + this.Attacker._pv + '\n');
-      console.log(this.Defender._name.toUpperCase() + ' PV : ' + this.Defender._pv + '\n');
+      this.infos_battle += '================================== <br/>';
 
-      this.wait(2000);
+      if (this.Attacker._pv <= 0 || this.Defender._pv <= 0) {
+        clearInterval(this.idInterval);
+        this.infos_battle += this.Defender._name.toUpperCase() + ' est KO !<br/>';
+        this.infos_battle += '<strong>' + this.Attacker._name.toUpperCase() + ' grand Vainqueur !</strong> GG WP ' 
+        + this.Defender._name.toUpperCase() + ' ! (Sheh aussi un peu)';
+      }
+      
       this.switchAttackerAndDefender();
-    }
-
-    console.log(' . . . Ah nan, il est juste au sol ' + this.Attacker._name + ' en fait :/');
-    this.infos_battle += ' . . . Ah nan, il est juste au sol ' + this.Attacker._name + ' en fait :/';
-    console.log(this.Defender._name + ' grand Vainqueur ! GG WP ' + this.Defender._name + ' ! (Sheh aussi un peu)');
-    this.infos_battle += this.Defender._name + ' grand Vainqueur ! GG WP ' + this.Defender._name + ' ! (Sheh aussi un peu)';
+    }, 2000);
   }
   // public openLegalNotice(): void {
   //   this.dialog.open(
