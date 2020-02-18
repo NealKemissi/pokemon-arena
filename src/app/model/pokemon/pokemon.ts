@@ -1,12 +1,12 @@
 import Attack from '../attack/attack';
 
 export default class Pokemon {
-    
+
     /** constructeur **/
     constructor(
-        public _name? : string, 
-        public _speed? : number, 
-        public _pv? : number, 
+        public _name? : string,
+        public _speed? : number,
+        public _pv? : number,
         public _attacks? : Array<Attack>,//= new Array(4)
         public _level? : number,
         public _offensiveStat? : number,
@@ -26,7 +26,7 @@ export default class Pokemon {
 
     /**
      * modifie la vie du pokemon
-     * @param damage 
+     * @param damage
      */
     public modifyHealth(damage: number){
         this._pv -= damage;
@@ -48,7 +48,7 @@ export default class Pokemon {
     }
     /**
      * degats subit lors d'une attaque
-     * @param attack 
+     * @param attack
      * @return les pv restants
      */
     public hitByAttack(attack : Attack) : number {
