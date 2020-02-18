@@ -11,12 +11,29 @@ export default class Pokemon {
     /** liste d'attaque **/
     private attacks : Array<Attack> = new Array(4);
 
+    private level: number;
+
+    private offensiveStat: number;
+
+    private defensiveStat: number;
     /** constructeur **/
-    constructor(name : string, speed : number, pv : number, attacks : Array<Attack>) {
-        this.name = name;
-        this.speed = speed;
-        this.pv = pv;
-        this.attacks = attacks;
+    constructor(_name : string, 
+        _speed : number, 
+        _pv : number, 
+        _attacks : Array<Attack>,
+        _level: number = 1,
+        _offensiveStat: number = 10,
+        _defensiveStat: number = 10
+        ) {
+        this.name = _name;
+        this.speed = _speed;
+        this.pv = _pv;
+        this.attacks = _attacks;
+        this.level = _level;
+        this.offensiveStat= _offensiveStat;
+        this.defensiveStat= _defensiveStat;
+
+
     }
 
     public getName() : string {
@@ -31,7 +48,18 @@ export default class Pokemon {
     public getAttacks() : Array<Attack> {
         return this.attacks;
     }
-
+    public getLevel() : number{
+        return this.level;
+    }
+    public getOffensiveStat(): number{
+        return this.offensiveStat;
+    }
+    public getDefensiveStat(): number{
+        return this.defensiveStat;
+    }
+    public modifyHealth(damage: number){
+        this.pv -= damage;
+    }
     /**
      * lance une attaque au hasard
      * @return l'attaque à lancer
