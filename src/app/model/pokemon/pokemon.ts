@@ -19,7 +19,7 @@ export default class Pokemon {
     }
     set attacks(attacks : Array<Attack>) {
         if(attacks.length > 4) {
-            throw new Error('le Pokemon ne peut pas avoir plus de 4 capacité !')
+            throw new Error('le Pokemon ne peut pas avoir plus de 4 capacités !')
         }
         this._attacks = attacks;
     }
@@ -36,15 +36,7 @@ export default class Pokemon {
      * @return l'attaque à lancer
      */
     public selectRandomAttack() : Attack {
-        return this._attacks[Math.floor(Math.random() * 3)];
-    }
-    /**
-     * lance une attaque en particulier
-     * @param id
-     * @return l'attaque à lancer
-     */
-    public selectAttack(id : number) : Attack {
-        return this._attacks[id];
+        return this._attacks[Math.floor(Math.random() * 4.9)];
     }
     /**
      * degats subit lors d'une attaque
