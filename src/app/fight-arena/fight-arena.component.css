@@ -31,3 +31,34 @@ mat-grid-tile {
 body {
   background: linear-gradient(#F8F7FC, #CCD6E0);
 }
+
+.example-button-row button,
+.example-button-row a {
+  margin-right: 8px;
+}
+
+.buttonGo {
+  color: #FFD700;
+  font-size: 23px;
+  font-weight: bold;
+}
+
+.buttonContainer {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.infoBottom {
+  margin-top: -80px;
+  line-height: 14px;
+  margin-right: 40%;
+}
+
+.pvStyleActive {
+  color: green;
+}
+
+.pvStyleInactive {
+   color: red;
+}

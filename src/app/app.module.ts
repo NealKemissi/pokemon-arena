@@ -9,12 +9,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FightArenaComponent } from './fight-arena/fight-arena.component';
 import { InfosComponent } from './infos/infos.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FightArenaComponent,
-    InfosComponent
+    InfosComponent,
+    NavbarComponent
   ],
   imports: [
     MatGridListModule,
