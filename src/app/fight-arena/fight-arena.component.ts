@@ -29,6 +29,8 @@ export class FightArenaComponent implements OnInit {
 
   infos_battle : string = "";
 
+  isStarted = false;
+
   constructor(
     public dialog: MatDialog
   ) { }
@@ -99,6 +101,7 @@ export class FightArenaComponent implements OnInit {
   }
 
   launch() : void {
+    this.isStarted = true;
     this.firstToAttack();
 
     this.idInterval = setInterval(() => {

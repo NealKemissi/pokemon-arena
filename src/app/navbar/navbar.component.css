@@ -1,0 +1,21 @@
+@font-face {
+  font-family: 'KOMIKAX';
+  src: url('../../assets/font/KOMIKAX_.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  }
+
+.nav {
+  border-bottom: 1px solid black;
+  background-color: #00BFFF;
+}
+
+.pokebol {
+  width: 100px;
+}
+.title {
+  font-family: 'KOMIKAX';
+  margin-left:10px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
