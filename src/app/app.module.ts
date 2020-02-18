@@ -5,11 +5,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { FightArenaComponent } from './fight-arena/fight-arena.component';
+import { InfosComponent } from './infos/infos.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FightArenaComponent
+    FightArenaComponent,
+    InfosComponent
   ],
   imports: [
     MatGridListModule,

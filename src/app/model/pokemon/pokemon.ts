@@ -8,9 +8,9 @@ export default class Pokemon {
         public _speed? : number,
         public _pv? : number,
         public _attacks? : Array<Attack>,//= new Array(4)
-        public _level? : number,
-        public _offensiveStat? : number,
-        public _defensiveStat? : number
+        public _level : number = 50,
+        public _offensiveStat : number = 70,
+        public _defensiveStat : number = 70
         ) {
     }
 
