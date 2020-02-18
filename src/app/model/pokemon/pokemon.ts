@@ -8,14 +8,15 @@ export default class Pokemon {
     private speed : number;
     /** vie du pokemon **/
     private pv : number;
+    /** niveau du pokemon **/
+    private level: number;
+    /** niveau stats offensives  **/
+    private offensiveStat: number;
+    /** niveau stats defensives  **/
+    private defensiveStat: number;
     /** liste d'attaque **/
     private attacks : Array<Attack> = new Array(4);
-
-    private level: number;
-
-    private offensiveStat: number;
-
-    private defensiveStat: number;
+    
     /** constructeur **/
     constructor(_name : string, 
         _speed : number, 
@@ -32,8 +33,6 @@ export default class Pokemon {
         this.level = _level;
         this.offensiveStat= _offensiveStat;
         this.defensiveStat= _defensiveStat;
-
-
     }
 
     public getName() : string {
@@ -57,6 +56,11 @@ export default class Pokemon {
     public getDefensiveStat(): number{
         return this.defensiveStat;
     }
+
+    /**
+     * modifie la vie du pokemon
+     * @param damage 
+     */
     public modifyHealth(damage: number){
         this.pv -= damage;
     }
@@ -70,7 +74,7 @@ export default class Pokemon {
     /**
      * lance une attaque en particulier
      * @param id
-     *  @return l'attaque à lancer
+     * @return l'attaque à lancer
      */
     public selectAttack(id : number) : Attack {
         return this.attacks[id];
@@ -78,6 +82,7 @@ export default class Pokemon {
     /**
      * degats subit lors d'une attaque
      * @param attack 
+     * @return les pv restants
      */
     public hitByAttack(attack : Attack) : number {
         this.pv = this.pv - attack.getDamage();
