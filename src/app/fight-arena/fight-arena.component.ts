@@ -31,12 +31,12 @@ export class FightArenaComponent implements OnInit {
    * @return l'attaquant qui va lancer la première attaque
    */
   firstToAttack(): Pokemon {
-		if (this.Defender.getSpeed() === this.Attacker.getSpeed()) {
+		if (this.Defender._speed === this.Attacker._speed) {
 		  if (Math.random()<0.5) {
 				this.switchAttackerAndDefender()
 			}
 		} else {
-			if (this.Attacker.getSpeed() < this.Defender.getSpeed()) {
+			if (this.Attacker._speed < this.Defender._speed) {
 				this.switchAttackerAndDefender()	
 			}
 		}
@@ -61,7 +61,7 @@ export class FightArenaComponent implements OnInit {
    * @return la valeur réel de l'attaque 
    */
   calculateAttackRealValue(attacker : Pokemon, defender: Pokemon, attack: Attack): number{
-		return Math.floor(Math.floor(Math.floor(2*attacker.getLevel()/5 + 2)*attacker.getOffensiveStat()*attack.getDamage()/defender.getDefensiveStat())/50)+2
+		return Math.floor(Math.floor(Math.floor(2*attacker._level/5 + 2)*attacker._offensiveStat*attack._damage/defender._defensiveStat)/50)+2
   }
   
   /**

@@ -2,59 +2,26 @@ import Attack from '../attack/attack';
 
 export default class Pokemon {
     
-    /** nom du pokemon **/
-    private name : string;
-    /** vitesse du pokemon **/
-    private speed : number;
-    /** vie du pokemon **/
-    private pv : number;
-    /** niveau du pokemon **/
-    private level: number;
-    /** niveau stats offensives  **/
-    private offensiveStat: number;
-    /** niveau stats defensives  **/
-    private defensiveStat: number;
-    /** liste d'attaque **/
-    private attacks : Array<Attack> = new Array(4);
-    
     /** constructeur **/
-    constructor(_name : string, 
-        _speed : number, 
-        _pv : number, 
-        _attacks : Array<Attack>,
-        _level: number = 1,
-        _offensiveStat: number = 10,
-        _defensiveStat: number = 10
+    constructor(
+        public _name? : string, 
+        public _speed? : number, 
+        public _pv? : number, 
+        public _attacks? : Array<Attack>,//= new Array(4)
+        public _level? : number,
+        public _offensiveStat? : number,
+        public _defensiveStat? : number
         ) {
-        this.name = _name;
-        this.speed = _speed;
-        this.pv = _pv;
-        this.attacks = _attacks;
-        this.level = _level;
-        this.offensiveStat= _offensiveStat;
-        this.defensiveStat= _defensiveStat;
     }
 
-    public getName() : string {
-        return this.name;
+    get attacks() {
+        return this._attacks;
     }
-    public getSpeed() : number {
-        return this.speed;
-    }
-    public getPv() : number {
-        return this.pv;
-    }
-    public getAttacks() : Array<Attack> {
-        return this.attacks;
-    }
-    public getLevel() : number{
-        return this.level;
-    }
-    public getOffensiveStat(): number{
-        return this.offensiveStat;
-    }
-    public getDefensiveStat(): number{
-        return this.defensiveStat;
+    set attacks(attacks : Array<Attack>) {
+        if(attacks.length > 4) {
+            throw new Error('le Pokemon ne peut pas avoir plus de 4 capacité !')
+        }
+        this._attacks = attacks;
     }
 
     /**
@@ -62,14 +29,14 @@ export default class Pokemon {
      * @param damage 
      */
     public modifyHealth(damage: number){
-        this.pv -= damage;
+        this._pv -= damage;
     }
     /**
      * lance une attaque au hasard
      * @return l'attaque à lancer
      */
     public selectRandomAttack() : Attack {
-        return this.attacks[Math.floor(Math.random() * 3)];
+        return this._attacks[Math.floor(Math.random() * 3)];
     }
     /**
      * lance une attaque en particulier
@@ -77,7 +44,7 @@ export default class Pokemon {
      * @return l'attaque à lancer
      */
     public selectAttack(id : number) : Attack {
-        return this.attacks[id];
+        return this._attacks[id];
     }
     /**
      * degats subit lors d'une attaque
@@ -85,7 +52,7 @@ export default class Pokemon {
      * @return les pv restants
      */
     public hitByAttack(attack : Attack) : number {
-        this.pv = this.pv - attack.getDamage();
-        return this.pv;
+        this._pv = this._pv - attack._damage;
+        return this._pv;
     }
 }
