@@ -36,7 +36,7 @@ export default class Pokemon {
      * @return l'attaque à lancer
      */
     public selectRandomAttack() : Attack {
-        return this._attacks[Math.floor(Math.random() * 4.9)];
+        return this._attacks[Math.floor(Math.random() * 3.9)];
     }
     /**
      * degats subit lors d'une attaque

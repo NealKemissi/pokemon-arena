@@ -22,8 +22,8 @@ export class FightArenaComponent implements OnInit {
     new Attack("Dévorêve", 35),
     new Attack("Vibrobscure", 30)
   ];
-  private Attacker: Pokemon = new Pokemon("Dracaufeu", 50, 280, this.attacksPokemon1);
-  private Defender: Pokemon = new Pokemon("Ectoplasma", 42, 300, this.attacksPokemon2);
+  Attacker: Pokemon = new Pokemon("Dracaufeu", 50, 20, this.attacksPokemon1);
+  Defender: Pokemon = new Pokemon("Ectoplasma", 42, 20, this.attacksPokemon2);
 
 
   infos_battle : string = "";
@@ -108,7 +108,8 @@ export class FightArenaComponent implements OnInit {
       console.log(this.Defender._name.toUpperCase() + ' perd ' + specificAttack._damage + ' PV');
       this.infos_battle += this.Defender._name.toUpperCase() + ' perd ' + specificAttack._damage + ' PV\n';
 
-      console.log('\n');
+      console.log(this.Attacker._name.toUpperCase() + ' PV : ' + this.Attacker._pv + '\n');
+      console.log(this.Defender._name.toUpperCase() + ' PV : ' + this.Defender._pv + '\n');
 
       this.wait(2000);
       this.switchAttackerAndDefender();
