@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import Pokemon from '../model/pokemon/pokemon';
+import { MatDialog } from '@angular/material/dialog';
 import Attack from '../model/attack/attack';
+import Pokemon from '../model/pokemon/pokemon';
 
 @Component({
   selector: 'app-fight-arena',
@@ -23,38 +24,22 @@ export class FightArenaComponent implements OnInit {
   ];
   private Attacker: Pokemon = new Pokemon("Dracaufeu", 50, 280, this.attacksPokemon1);
   private Defender: Pokemon = new Pokemon("Ectoplasma", 42, 300, this.attacksPokemon2);
-  
+
 
   infos_battle : string = "";
 
-  constructor() { }
+  constructor(
+    public dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
-    this.firstToAttack();
-    while (this.Attacker._pv > 0 && this.Defender._pv > 0) {
-      let specificAttack = this.Attacker.selectRandomAttack();
-      console.log(this.Attacker._name.toUpperCase() + ' utilise ' + specificAttack._name.toUpperCase());
-      this.infos_battle += this.Attacker._name.toUpperCase() + ' utilise ' + specificAttack._name.toUpperCase() + ' !\n';
-      specificAttack._damage = this.calculateAttackRealValue(specificAttack);
-      this.Defender.hitByAttack(specificAttack);
-      console.log(this.Defender._name.toUpperCase() + ' perd ' + specificAttack._damage + ' PV');
-      this.infos_battle += this.Defender._name.toUpperCase() + ' perd ' + specificAttack._damage + ' PV\n';
+    // this.openLegalNotice();
 
-      console.log('\n');
-      
-      this.wait(2000);
-      this.switchAttackerAndDefender();
-    }
-
-    console.log(' . . . Ah nan, il est juste au sol ' + this.Attacker._name + ' en fait :/');
-    this.infos_battle += ' . . . Ah nan, il est juste au sol ' + this.Attacker._name + ' en fait :/';
-    console.log(this.Defender._name + ' grand Vainqueur ! GG WP ' + this.Defender._name + ' ! (Sheh aussi un peu)');
-    this.infos_battle += this.Defender._name + ' grand Vainqueur ! GG WP ' + this.Defender._name + ' ! (Sheh aussi un peu)';
   }
 
   /**
    * permet d'attendre une fois qu'un pokemon a attaqué.
-   * @param ms 
+   * @param ms
    */
   wait(ms: number){
     var start = new Date().getTime();
@@ -111,6 +96,38 @@ export class FightArenaComponent implements OnInit {
   impactDefenderPokemonHealth(pokemon: Pokemon, value: number) {
     pokemon.modifyHealth(value);
   }
+
+  launch() {
+    this.firstToAttack();
+    while (this.Attacker._pv > 0 && this.Defender._pv > 0) {
+      let specificAttack = this.Attacker.selectRandomAttack();
+      console.log(this.Attacker._name.toUpperCase() + ' utilise ' + specificAttack._name.toUpperCase());
+      this.infos_battle += this.Attacker._name.toUpperCase() + ' utilise ' + specificAttack._name.toUpperCase() + ' !\n';
+      specificAttack._damage = this.calculateAttackRealValue(specificAttack);
+      this.Defender.hitByAttack(specificAttack);
+      console.log(this.Defender._name.toUpperCase() + ' perd ' + specificAttack._damage + ' PV');
+      this.infos_battle += this.Defender._name.toUpperCase() + ' perd ' + specificAttack._damage + ' PV\n';
+
+      console.log('\n');
+
+      this.wait(2000);
+      this.switchAttackerAndDefender();
+    }
+
+    console.log(' . . . Ah nan, il est juste au sol ' + this.Attacker._name + ' en fait :/');
+    this.infos_battle += ' . . . Ah nan, il est juste au sol ' + this.Attacker._name + ' en fait :/';
+    console.log(this.Defender._name + ' grand Vainqueur ! GG WP ' + this.Defender._name + ' ! (Sheh aussi un peu)');
+    this.infos_battle += this.Defender._name + ' grand Vainqueur ! GG WP ' + this.Defender._name + ' ! (Sheh aussi un peu)';
+  }
+  // public openLegalNotice(): void {
+  //   this.dialog.open(
+  //     DialoglaunchComponent,
+  //     {
+  //       width: '70%',
+  //       height: '70%'
+  //     }
+  //   );
+  // }
 
 
 }
