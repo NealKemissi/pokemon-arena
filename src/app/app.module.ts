@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { FightArenaComponent } from './fight-arena/fight-arena.component';
 import { InfosComponent } from './infos/infos.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { BattleServiceService } from './service/battle-service.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,9 @@ import { NavbarComponent } from './navbar/navbar.component';
     MatButtonModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [
+    BattleServiceService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -38,14 +38,17 @@
 </div>
 
 
-<div class="example-button-row buttonContainer"  [hidden]="isStarted">
+<div class="example-button-row buttonContainer"  *ngIf="!isStarted && !isOver">
   <button mat-raised-button color="warn" (click)="launch()" class="buttonGo">Go</button>
+</div>
+<div class="example-button-row buttonContainer"  *ngIf="!isStarted && isOver">
+  <button mat-raised-button color="warn" class="buttonGo" (click)="reset()">Reset</button>
 </div>
 
 <div>
-  <app-infos [infos_battle]="infos_battle"></app-infos>
+  <app-infos [infos_battle]="logs"></app-infos>
 </div>
 
-<div *ngIf="getLooser()" class="looser">
- Game Over : {{getLooser()._name}}
+<div *ngIf="looser" class="looser">
+ Game Over : {{looser._name}}
 </div>
