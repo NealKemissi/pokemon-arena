@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class InfosComponent implements OnInit {
 
-  @Input() infos_battle : string;
+  @Input() infos_battle : string[];
 
   constructor() { }
 
