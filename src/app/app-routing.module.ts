@@ -1,3 +1,4 @@
+import { ChoiceComponent } from './choice/choice.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DialoglaunchComponent } from './dialoglaunch/dialoglaunch.component';
@@ -13,8 +14,12 @@ const routes: Routes = [
     component: FightArenaComponent,
   },
   {
+    path: 'choise',
+    component: ChoiceComponent,
+  },
+  {
     path: '',
-    redirectTo: '/launch',
+    redirectTo: '/choise',
     pathMatch: 'full'
   }
 ];
