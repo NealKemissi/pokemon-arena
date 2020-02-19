@@ -105,7 +105,7 @@ export class FightArenaComponent implements OnInit {
     this.firstToAttack();
 
     this.idInterval = setInterval(() => {
-    
+
       let specificAttack = this.Attacker.selectRandomAttack();
       this.infos_battle += '> ' + this.Attacker._name.toUpperCase() + ' utilise ' + specificAttack._name.toUpperCase() + ' !<br/>';
       specificAttack._damage = this.calculateAttackRealValue(specificAttack);
@@ -117,22 +117,23 @@ export class FightArenaComponent implements OnInit {
       if (this.Attacker._pv <= 0 || this.Defender._pv <= 0) {
         clearInterval(this.idInterval);
         this.infos_battle += this.Defender._name.toUpperCase() + ' est KO !<br/>';
-        this.infos_battle += '<strong>' + this.Attacker._name.toUpperCase() + ' grand Vainqueur !</strong> GG WP ' 
+        this.infos_battle += '<strong>' + this.Attacker._name.toUpperCase() + ' grand Vainqueur !</strong> GG WP '
         + this.Defender._name.toUpperCase() + ' ! (Sheh aussi un peu)';
       }
-      
+
       this.switchAttackerAndDefender();
     }, 2000);
   }
-  // public openLegalNotice(): void {
-  //   this.dialog.open(
-  //     DialoglaunchComponent,
-  //     {
-  //       width: '70%',
-  //       height: '70%'
-  //     }
-  //   );
-  // }
 
+  public getLooser(): Pokemon {
+    let pokemomLooser;
+    if (this.Attacker._pv <= 0) {
+      pokemomLooser = this.Attacker;
+    }
+    if (this.Attacker._pv <= 0) {
+      pokemomLooser = this.Defender;
+    }
+    return pokemomLooser;
+  }
 
 }

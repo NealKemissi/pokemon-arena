@@ -45,3 +45,7 @@
 <div>
   <app-infos [infos_battle]="infos_battle"></app-infos>
 </div>
+
+<div *ngIf="getLooser()" class="looser">
+ Game Over : {{getLooser()._name}}
+</div>
