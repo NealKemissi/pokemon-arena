@@ -76,3 +76,11 @@ body {
 .pvStyleInactive {
    color: red;
 }
+
+.looser {
+  font-size: 62px;
+  color: red;
+  position: absolute;
+  top: 50%;
+  left: 28%;
+}
