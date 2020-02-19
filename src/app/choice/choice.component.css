@@ -1,0 +1,47 @@
+.choiceList {
+   margin-left: 5%;
+}
+
+.card {
+  width: 150px;
+  height: 200px;
+  margin-top: 50px;
+  border: 10px solid #64442b;
+  border-radius: 10px;
+  display: inline-block;
+  margin-right: 50px;
+  padding: 5px;
+  background-color: white;
+  /* background-image:linear-gradient(60deg, white, #af8d78); */
+}
+
+.cardImage {
+  width: 150px;
+  height: 100px;
+}
+
+.carMouseOuver {
+  border: 10px solid #DAA520;
+  cursor: pointer;
+}
+
+.carMouseleave{
+  border: 10px solid #64442b;
+}
+
+.carSelected {
+  border: 10px solid #DAA520;
+  cursor: none;
+}
+
+.container  {
+  background-image: url("../../assets/img/fond.jpg");
+  background-size: cover;
+  padding-bottom: 3%;
+  border-bottom: 1px solid black;
+}
+
+#footer {
+  text-align: center;
+  font-style: italic;
+}

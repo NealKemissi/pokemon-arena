@@ -11,13 +11,15 @@ import { FightArenaComponent } from './fight-arena/fight-arena.component';
 import { InfosComponent } from './infos/infos.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { BattleServiceService } from './service/battle-service.service';
+import { ChoiceComponent } from './choice/choice.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FightArenaComponent,
     InfosComponent,
-    NavbarComponent
+    NavbarComponent,
+    ChoiceComponent
   ],
   imports: [
     MatGridListModule,
