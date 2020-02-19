@@ -11,14 +11,14 @@ import { BattleServiceService } from '../service/battle-service.service';
 })
 export class FightArenaComponent implements OnInit {
 
-  Attacker : Pokemon;
-  Defender : Pokemon;
+  Attacker: Pokemon;
+  Defender: Pokemon;
 
-  idInterval : any;
-  infos_battle : string = "";
+  idInterval: any;
+  infos_battle: string = "";
   isStarted = false;
   isOver = false;
-  looser : Pokemon;
+  looser: Pokemon;
   logs = [];
 
   constructor(
@@ -31,8 +31,8 @@ export class FightArenaComponent implements OnInit {
     this.Attacker = this.battle_service.initialyzeAttacker();
     this.Defender = this.battle_service.initialyzeDefender();
   }
-  
-  
+
+
 
   /**
    * modifie les pv d'un pokemon
@@ -43,10 +43,23 @@ export class FightArenaComponent implements OnInit {
     pokemon.modifyHealth(value);
   }
 
-  launch() : void {
-    this.isStarted = true;
-    this.isOver = false;
+  launch(): void {
+    this.battle_service.getIsStarted()
+      .subscribe(data => {
+        this.isStarted = data;
+      });
+    this.battle_service.getisOver()
+      .subscribe(data => {
+        this.isOver = data;
+      });
     this.battle_service.onBattle(this.Attacker, this.Defender);
     this.logs = this.battle_service.getLogs();
+  }
+
+  stop(): void {
+    this.battle_service.stop();
+  }
+
+  reset(): void {
   }
 }

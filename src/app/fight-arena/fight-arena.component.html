@@ -42,7 +42,7 @@
   <button mat-raised-button color="warn" (click)="launch()" class="buttonGo">Go</button>
 </div>
 <div class="example-button-row buttonContainer"  *ngIf="!isStarted && isOver">
-  <button mat-raised-button color="warn" class="buttonGo">Reset</button>
+  <button mat-raised-button color="warn" class="buttonGo" (click)="reset()">Reset</button>
 </div>
 
 <div>
