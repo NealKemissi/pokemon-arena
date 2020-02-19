@@ -6,6 +6,20 @@ mat-grid-tile {
   text-align: center;
 }
 
+.sprite-moves {
+  animation: MoveUpDown 1s linear infinite;
+  position: absolute;
+}
+
+@keyframes MoveUpDown {
+  0%, 100% {
+    bottom: 0;
+  }
+  50% {
+    bottom: 10px;
+  }
+}
+
 
 .container {
   display: inline-block;
