@@ -31,18 +31,18 @@ export class BattleServiceService {
   ];
 
   pokemons = [
-    new Pokemon('Dracaufeu', 50, 100, this.attacksPokemon1, 50, 70, 70, '../../assets/img/dracaufeu_face.png'),
-    new Pokemon('Ectoplasma', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/gengar-sprite-png-2.gif'),
-    new Pokemon('Ectoplasma', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/dracaufeu.png'),
-    new Pokemon('Ectoplasma', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/dracaufeu.png'),
-    new Pokemon('Ectoplasma', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/dracaufeu.png'),
-    new Pokemon('Ectoplasma', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/dracaufeu.png'),
-    new Pokemon('Ectoplasma', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/dracaufeu.png'),
-    new Pokemon('Ectoplasma', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/dracaufeu.png'),
-    new Pokemon('Ectoplasma', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/dracaufeu.png'),
-    new Pokemon('Ectoplasma', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/dracaufeu.png'),
-    new Pokemon('Ectoplasma', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/dracaufeu.png'),
-    new Pokemon('Ectoplasma', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/dracaufeu.png')
+    new Pokemon('Dracaufeu', 50, 100, this.attacksPokemon1, 50, 70, 70, '../../assets/img/dracaufeu_face.gif'),
+    new Pokemon('Ectoplasma', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/ectoplasma.gif'),
+    new Pokemon('Eevee', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/Eevee_front.gif'),
+    new Pokemon('Pikachu', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/pikachu_front.gif'),
+    new Pokemon('Snorlax', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/snorlax_front.gif'),
+    new Pokemon('Tortank', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/tortank_front.gif'),
+    new Pokemon('Weezing', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/weezing_front.gif'),
+    new Pokemon('Leviator', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/leviator_front.gif'),
+    new Pokemon('Onix', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/onix_front.gif'),
+    new Pokemon('Machamp', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/machamp_front.gif'),
+    new Pokemon('Noadkoko', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/noadkoko_front.gif'),
+    new Pokemon('Venusaur', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/venusaur_front.gif')
   ];
 
   constructor() { }
