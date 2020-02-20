@@ -5,7 +5,7 @@ import { FightArenaComponent } from './fight-arena/fight-arena.component';
 
 const routes: Routes = [
   {
-    path: 'flightArena',
+    path: 'flightArena/:attacker/:defender',
     component: FightArenaComponent,
   },
   {

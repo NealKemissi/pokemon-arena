@@ -3,7 +3,6 @@ import { Subscription } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import Attack from '../model/attack/attack';
 import Pokemon from '../model/pokemon/pokemon';
-import { Observable, Observer, interval, of } from 'rxjs';
 import Sprite from '../model/pokemon/sprite';
 @Injectable({
   providedIn: 'root'
@@ -47,38 +46,12 @@ export class BattleServiceService {
 
   constructor() { }
 
-  initialyzeAttacker(): Pokemon {
-    let pokemon = null;
-    this.dataPokemons.subscribe(data => {
-      pokemon = this.pokemons.find(x => data[0] === x._name);
-      if (pokemon._pv < 100) {
-        pokemon._pv = 100;
-      }
-      if (pokemon) {
-        localStorage.setItem('attacker', JSON.stringify(pokemon));
-      }
-      if (!pokemon && localStorage.getItem('attacker')) {
-        pokemon = JSON.parse(localStorage.getItem('attacker'));
-      }
-    });
-    return pokemon;
+  initialyzeAttacker(attacker): Pokemon {
+    return this.pokemons.find(x => attacker === x._name);
   }
 
-  initialyzeDefender(): Pokemon {
-    let pokemon = null;
-    this.dataPokemons.subscribe(data => {
-      pokemon = this.pokemons.find(x => data[1] === x._name);
-      if (pokemon._pv < 100) {
-        pokemon._pv = 100;
-      }
-      if (pokemon) {
-        localStorage.setItem('defender', JSON.stringify(pokemon));
-      }
-      if (!pokemon && localStorage.getItem('defender')) {
-        pokemon = JSON.parse(localStorage.getItem('defender'));
-      }
-    });
-    return pokemon;
+  initialyzeDefender(defender): Pokemon {
+    return this.pokemons.find(x => defender === x._name);
   }
 
   /**

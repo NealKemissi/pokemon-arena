@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
 import Pokemon from '../model/pokemon/pokemon';
 import { BattleServiceService } from '../service/battle-service.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-fight-arena',
@@ -24,13 +25,17 @@ export class FightArenaComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
 
+  private attacker: string = this.route.snapshot.paramMap.get('attacker');
+  private defender: string = this.route.snapshot.paramMap.get('defender');
+
   constructor(
-    private battle_service: BattleServiceService
+    private battle_service: BattleServiceService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.Attacker = this.battle_service.initialyzeAttacker();
-    this.Defender = this.battle_service.initialyzeDefender();
+    this.Attacker = this.battle_service.initialyzeAttacker(this.attacker);
+    this.Defender = this.battle_service.initialyzeDefender(this.defender);
   }
 
 
@@ -78,8 +83,8 @@ export class FightArenaComponent implements OnInit, OnDestroy {
     this.begin = undefined;
     this.end = undefined;
     this.battle_service.clearLogs();
-    this.Attacker = this.battle_service.initialyzeAttacker();
-    this.Defender = this.battle_service.initialyzeDefender();
+    this.Attacker = this.battle_service.initialyzeAttacker(this.attacker);
+    this.Defender = this.battle_service.initialyzeDefender(this.defender);
     this.launch();
   }
 }
