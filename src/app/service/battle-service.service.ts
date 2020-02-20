@@ -3,6 +3,7 @@ import Attack from '../model/attack/attack';
 import Pokemon from '../model/pokemon/pokemon';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Observable, Observer, interval, of } from 'rxjs';
+import Sprite from '../model/pokemon/sprite';
 @Injectable({
   providedIn: 'root'
 })
@@ -31,18 +32,18 @@ export class BattleServiceService {
   ];
 
   pokemons = [
-    new Pokemon('Dracaufeu', 50, 100, this.attacksPokemon1, 50, 70, 70, '../../assets/img/dracaufeu_face.gif'),
-    new Pokemon('Ectoplasma', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/ectoplasma_front.gif'),
-    new Pokemon('Eevee', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/Eevee_front.gif'),
-    new Pokemon('Pikachu', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/pikachu_front.gif'),
-    new Pokemon('Snorlax', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/snorlax_front.gif'),
-    new Pokemon('Tortank', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/tortank_front.gif'),
-    new Pokemon('Weezing', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/weezing_front.gif'),
-    new Pokemon('Leviator', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/leviator_front.gif'),
-    new Pokemon('Onix', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/onix_front.gif'),
-    new Pokemon('Machamp', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/machamp_front.gif'),
-    new Pokemon('Noadkoko', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/noadkoko_front.gif'),
-    new Pokemon('Venusaur', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/venusaur_front.gif')
+    new Pokemon('Dracaufeu', 50, 100, this.attacksPokemon1, 50, 70, 70, new Sprite('charizard')),
+    new Pokemon('Ectoplasma', 42, 100, this.attacksPokemon2, 50, 70, 70, new Sprite('gengar')),
+    new Pokemon('Eevee', 42, 100, this.attacksPokemon2, 50, 70, 70, new Sprite('eevee')),
+    new Pokemon('Pikachu', 42, 100, this.attacksPokemon2, 50, 70, 70, new Sprite('pikachu')),
+    new Pokemon('Snorlax', 42, 100, this.attacksPokemon2, 50, 70, 70, new Sprite('snorlax')),
+    new Pokemon('Tortank', 42, 100, this.attacksPokemon2, 50, 70, 70, new Sprite('blastoise')),
+    new Pokemon('Weezing', 42, 100, this.attacksPokemon2, 50, 70, 70, new Sprite('weezing')),
+    new Pokemon('Leviator', 42, 100, this.attacksPokemon2, 50, 70, 70, new Sprite('gyrados')),
+    new Pokemon('Onix', 42, 100, this.attacksPokemon2, 50, 70, 70, new Sprite('onix')),
+    new Pokemon('Machamp', 42, 100, this.attacksPokemon2, 50, 70, 70, new Sprite('machamp')),
+    new Pokemon('Noadkoko', 42, 100, this.attacksPokemon2, 50, 70, 70, new Sprite('exeggutor')),
+    new Pokemon('Venusaur', 42, 100, this.attacksPokemon2, 50, 70, 70, new Sprite('venusaur'))
   ];
 
   constructor() { }

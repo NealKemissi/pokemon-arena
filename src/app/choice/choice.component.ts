@@ -41,7 +41,7 @@ export class ChoiceComponent implements OnInit {
       _offensiveStat: pokemon._offensiveStat,
       _defensiveStat: pokemon._defensiveStat,
       _class: 'carMouseleave',
-      _image: pokemon._image
+      _image: pokemon._sprite._front
     };
   }
 

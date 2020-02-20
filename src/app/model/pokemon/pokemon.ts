@@ -1,4 +1,5 @@
 import Attack from '../attack/attack';
+import Sprite from './sprite';
 
 export default class Pokemon {
 
@@ -11,7 +12,7 @@ export default class Pokemon {
     public _level: number = 50,
     public _offensiveStat: number = 70,
     public _defensiveStat: number = 70,
-    public _image?: string
+    public _sprite?: Sprite
   ) {
   }
 
