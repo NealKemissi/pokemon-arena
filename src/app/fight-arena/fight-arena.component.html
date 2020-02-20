@@ -44,7 +44,9 @@
 </div>
 
 <div>
+  <span *ngIf="begin"> > DEBUT : {{ begin | date:'shortTime'}}</span>
   <app-infos [infos_battle]="logs"></app-infos>
+  <span *ngIf="end"> > FIN : {{ end | date:'shortTime'}}</span>
 </div>
 
 <div *ngIf="looser" class="looser">

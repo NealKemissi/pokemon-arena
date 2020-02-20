@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import Attack from '../model/attack/attack';
 import Pokemon from '../model/pokemon/pokemon';
 import { BattleServiceService } from '../service/battle-service.service';
+import { getLocaleDateTimeFormat } from '@angular/common';
 
 @Component({
   selector: 'app-fight-arena',
@@ -20,6 +21,8 @@ export class FightArenaComponent implements OnInit {
   isOver = false;
   looser: Pokemon;
   logs = [];
+  begin : Date;
+  end : Date;
 
   constructor(
     public battle_service: BattleServiceService
@@ -43,6 +46,7 @@ export class FightArenaComponent implements OnInit {
   }
 
   launch(): void {
+    this.begin = new Date();
     this.battle_service.getIsStarted()
       .subscribe(data => {
         this.isStarted = data;
@@ -53,6 +57,7 @@ export class FightArenaComponent implements OnInit {
       });
     this.battle_service.onBattle(this.Attacker, this.Defender);
     this.logs = this.battle_service.getLogs();
+    this.end = new Date();
   }
 
   stop(): void {
@@ -60,6 +65,8 @@ export class FightArenaComponent implements OnInit {
   }
 
   reset(): void {
+    this.begin = undefined;
+    this.end = undefined;
     this.battle_service.clearLogs();
     this.Attacker = this.battle_service.initialyzeAttacker();
     this.Defender = this.battle_service.initialyzeDefender();
