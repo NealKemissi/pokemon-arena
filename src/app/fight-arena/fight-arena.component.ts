@@ -60,7 +60,7 @@ export class FightArenaComponent implements OnInit {
   }
 
   reset(): void {
-    this.logs = [];
+    this.battle_service.clearLogs();
     this.Attacker = this.battle_service.initialyzeAttacker();
     this.Defender = this.battle_service.initialyzeDefender();
     this.launch();

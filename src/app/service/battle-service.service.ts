@@ -74,7 +74,6 @@ export class BattleServiceService {
     this.isOver.next(false);
 
     this.idInterval = window.setInterval(() => {
-
       const specificAttack = attacker.selectRandomAttack();
       this.logs.push(' > ' + attacker._name.toUpperCase() + ' utilise ' + specificAttack._name.toUpperCase() + ' !<br/>');
       specificAttack._damage = this.calculateAttackRealValue(attacker, defender, specificAttack);
@@ -106,6 +105,10 @@ export class BattleServiceService {
 
   getLogs(): string[] {
     return this.logs;
+  }
+
+  clearLogs(): void {
+    this.logs  = [];
   }
 
 
