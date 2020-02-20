@@ -1,6 +1,7 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { FightArenaComponent } from './fight-arena.component';
+
 
 describe('FightArenaComponent', () => {
   let component: FightArenaComponent;
@@ -8,9 +9,12 @@ describe('FightArenaComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FightArenaComponent ]
+      declarations: [
+        FightArenaComponent
+      ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -22,4 +26,5 @@ describe('FightArenaComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });

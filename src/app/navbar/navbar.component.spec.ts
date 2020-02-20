@@ -22,4 +22,11 @@ describe('NavbarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render title', () => {
+    const componentNavBar = TestBed.createComponent(NavbarComponent);
+    componentNavBar.detectChanges();
+    const compiled = componentNavBar.nativeElement;
+    expect(compiled.querySelector('.title').textContent).toContain('Pokemon Arena');
+  });
 });

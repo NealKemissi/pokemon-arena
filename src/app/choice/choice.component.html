@@ -1,6 +1,6 @@
 <div class="container">
   <div class="choiceList">
-    <div class="card" [ngClass]="[pokemon._class]" [ngClass]="'active'" (click)="selectPokemon(pokemon)"
+    <div class="card" [ngClass]="[pokemon._class]" (click)="selectPokemon(pokemon)"
       *ngFor="let pokemon of pokemonsList" (mouseover)="zoom($event, pokemon)" (mouseleave)="dezoom($event, pokemon)">
       <img src="{{pokemon._image}}" alt="Avatar" class="cardImage">
       <div>
@@ -11,6 +11,6 @@
   </div>
 </div>
 
-<div id="footer">
+<div class="footer">
   COPYRIGHTS Ⓒ 2020 - Réalisé par Angelo, Neal et Christopher
 </div>
