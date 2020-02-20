@@ -46,7 +46,7 @@ export default class Pokemon {
    * @return les pv restants
    */
   public hitByAttack(attack: Attack): number {
-    this._pv = this._pv - attack._damage;
+    this._pv -= attack._damage;
     return this._pv;
   }
 }
