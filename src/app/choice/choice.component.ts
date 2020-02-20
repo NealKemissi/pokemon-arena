@@ -23,6 +23,7 @@ export class ChoiceComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    localStorage.clear();
     this.getAllPokemons();
   }
 

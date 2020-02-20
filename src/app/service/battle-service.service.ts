@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import Attack from '../model/attack/attack';
 import Pokemon from '../model/pokemon/pokemon';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-
+import { Observable, Observer, interval, of } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -32,7 +32,7 @@ export class BattleServiceService {
 
   pokemons = [
     new Pokemon('Dracaufeu', 50, 100, this.attacksPokemon1, 50, 70, 70, '../../assets/img/dracaufeu_face.gif'),
-    new Pokemon('Ectoplasma', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/ectoplasma.gif'),
+    new Pokemon('Ectoplasma', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/ectoplasma_front.gif'),
     new Pokemon('Eevee', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/Eevee_front.gif'),
     new Pokemon('Pikachu', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/pikachu_front.gif'),
     new Pokemon('Snorlax', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/snorlax_front.gif'),
@@ -51,6 +51,9 @@ export class BattleServiceService {
     let pokemon = null;
     this.dataPokemons.subscribe(data => {
       pokemon = this.pokemons.find(x => data[0] === x._name);
+      if (pokemon._pv < 50) {
+        pokemon._pv = 50;
+      }
       if (pokemon) {
         localStorage.setItem('attacker', JSON.stringify(pokemon));
       }
@@ -65,6 +68,9 @@ export class BattleServiceService {
     let pokemon = null;
     this.dataPokemons.subscribe(data => {
       pokemon = this.pokemons.find(x => data[1] === x._name);
+      if (pokemon._pv < 50) {
+        pokemon._pv = 50;
+      }
       if (pokemon) {
         localStorage.setItem('defender', JSON.stringify(pokemon));
       }
@@ -109,29 +115,23 @@ export class BattleServiceService {
     this.isStarted.next(true);
     this.isOver.next(false);
 
-    this.idInterval = window.setInterval(() => {
-      const specificAttack = attacker.selectRandomAttack();
-      this.logs.push(' > ' + attacker._name.toUpperCase() + ' utilise ' + specificAttack._name.toUpperCase() + ' !<br/>');
-      specificAttack._damage = this.calculateAttackRealValue(attacker, defender, specificAttack);
-      defender.hitByAttack(specificAttack);
-      this.logs.push('> ' + defender._name.toUpperCase() + ' perd ' + specificAttack._damage + ' PV<br/>');
+    // this.idInterval = window.setInterval(() => {
+    let specificAttack = attacker.selectRandomAttack();
+    this.logs.push(' > ' + attacker._name.toUpperCase() + ' utilise ' + specificAttack._name.toUpperCase() + ' !');
+    specificAttack._damage = this.calculateAttackRealValue(attacker, defender, specificAttack);
+    defender.hitByAttack(specificAttack);
+    this.logs.push('> ' + defender._name.toUpperCase() + ' perd ' + specificAttack._damage + ' PV<br/>');
 
-      this.logs.push('================================== <br/>');
+    this.logs.push('----------------------');
 
-      if (attacker._pv <= 0 || defender._pv <= 0) {
-        clearInterval(this.idInterval);
-        this.logs.push(defender._name.toUpperCase() + ' est KO !<br/>');
-        this.logs.push('<strong>' + attacker._name.toUpperCase() + ' grand Vainqueur !</strong> GG WP '
-          + defender._name.toUpperCase() + ' ! (Sheh aussi un peu)');
-        this.isStarted.next(false);
-        this.isOver.next(true);
-      }
+    specificAttack = defender.selectRandomAttack();
+    this.logs.push(' > ' + defender._name.toUpperCase() + ' utilise ' + specificAttack._name.toUpperCase() + ' !');
+    specificAttack._damage = this.calculateAttackRealValue(defender, attacker, specificAttack);
+    attacker.hitByAttack(specificAttack);
+    this.logs.push('> ' + attacker._name.toUpperCase() + ' perd ' + specificAttack._damage + ' PV');
 
-      /** switch Attacker and defender **/
-      const switchPokemon = this.SwitchPokemon(attacker, defender);
-      attacker = switchPokemon.attacker;
-      defender = switchPokemon.defender;
-    }, 2000);
+    this.logs.push('==================================');
+
   }
 
   stop(): void {
@@ -141,6 +141,10 @@ export class BattleServiceService {
 
   getLogs(): string[] {
     return this.logs;
+  }
+
+  addLog(message: string): void {
+    this.logs.push(message);
   }
 
   clearLogs(): void {
@@ -161,8 +165,11 @@ export class BattleServiceService {
    * @param pokemon2
    * @return celui qui a le moins de pv
    */
-  public getLooser(pokemon1: Pokemon, pokemon2: Pokemon): Pokemon {
-    return (pokemon1._pv < pokemon2._pv) ? pokemon1 : pokemon2;
+  public getResult(pokemon1: Pokemon, pokemon2: Pokemon): { winner, looser } {
+    return {
+      winner: (pokemon1._pv >= pokemon2._pv) ? pokemon1 : pokemon2,
+      looser: (pokemon1._pv < pokemon2._pv) ? pokemon1 : pokemon2
+    };
   }
 
   public getIsStarted() {
@@ -172,4 +179,5 @@ export class BattleServiceService {
   public getisOver() {
     return this.isOver;
   }
+
 }

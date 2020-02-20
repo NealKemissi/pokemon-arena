@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import Attack from '../model/attack/attack';
+import { interval } from 'rxjs';
 import Pokemon from '../model/pokemon/pokemon';
 import { BattleServiceService } from '../service/battle-service.service';
-import { getLocaleDateTimeFormat } from '@angular/common';
 
 @Component({
   selector: 'app-fight-arena',
@@ -29,7 +27,6 @@ export class FightArenaComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.openLegalNotice();
     this.Attacker = this.battle_service.initialyzeAttacker();
     this.Defender = this.battle_service.initialyzeDefender();
   }
@@ -55,10 +52,23 @@ export class FightArenaComponent implements OnInit {
       .subscribe(data => {
         this.isOver = data;
       });
-    this.battle_service.onBattle(this.Attacker, this.Defender);
+    const a = interval(350).subscribe(data => {
+      this.battle_service.onBattle(this.Attacker, this.Defender);
+      if (this.Attacker._pv <= 0 || this.Defender._pv <= 0) {
+        a.unsubscribe();
+        let looser: string = this.battle_service.getResult(this.Attacker, this.Defender).looser._name;
+        this.battle_service.addLog(' > ' + looser.toUpperCase() + ' est KO !');
+        let winner: string = this.battle_service.getResult(this.Attacker, this.Defender).winner._name;
+        this.battle_service.addLog(' > ' + winner.toUpperCase() + ' a gagné !');
+        this.battle_service.isStarted.next(false);
+        this.battle_service.isOver.next(true);
+      }
+    });
+
     this.logs = this.battle_service.getLogs();
     this.end = new Date();
   }
+
 
   stop(): void {
     this.battle_service.stop();
