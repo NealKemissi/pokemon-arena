@@ -2,10 +2,10 @@
 
   <mat-grid-list cols="2" rowHeight="2:1">
     <mat-grid-tile>
-      <img src="{{this.Attacker._sprite._back}}" class="sprite-moves" alt="attaker">
+      <img src="{{this.Attacker?._sprite?._back}}" class="sprite-moves" alt="attaker">
     </mat-grid-tile>
     <mat-grid-tile>
-      <img src="{{this.Defender._sprite._front}}" alt="defender">
+      <img src="{{this.Defender?._sprite?._front}}" alt="defender">
       <span class="dot"></span>
     </mat-grid-tile>
 
