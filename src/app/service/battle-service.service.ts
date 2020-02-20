@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import Attack from '../model/attack/attack';
 import Pokemon from '../model/pokemon/pokemon';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { Observable, Observer, interval, of } from 'rxjs';
 import Sprite from '../model/pokemon/sprite';
 @Injectable({
   providedIn: 'root'
@@ -15,8 +15,6 @@ export class BattleServiceService {
   public isOver: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   public dataPokemons: BehaviorSubject<Array<string>> = new BehaviorSubject<Array<string>>([]);
-
-  private idInterval: number;
 
   attacksPokemon1: Array<Attack> = [
     new Attack('Lance-flamme', 50),
@@ -48,38 +46,12 @@ export class BattleServiceService {
 
   constructor() { }
 
-  initialyzeAttacker(): Pokemon {
-    let pokemon = null;
-    this.dataPokemons.subscribe(data => {
-      pokemon = this.pokemons.find(x => data[0] === x._name);
-      if (pokemon._pv < 50) {
-        pokemon._pv = 50;
-      }
-      if (pokemon) {
-        localStorage.setItem('attacker', JSON.stringify(pokemon));
-      }
-      if (!pokemon && localStorage.getItem('attacker')) {
-        pokemon = JSON.parse(localStorage.getItem('attacker'));
-      }
-    });
-    return pokemon;
+  initialyzeAttacker(attacker): Pokemon {
+    return this.pokemons.find(x => attacker === x._name);
   }
 
-  initialyzeDefender(): Pokemon {
-    let pokemon = null;
-    this.dataPokemons.subscribe(data => {
-      pokemon = this.pokemons.find(x => data[1] === x._name);
-      if (pokemon._pv < 50) {
-        pokemon._pv = 50;
-      }
-      if (pokemon) {
-        localStorage.setItem('defender', JSON.stringify(pokemon));
-      }
-      if (!pokemon && localStorage.getItem('defender')) {
-        pokemon = JSON.parse(localStorage.getItem('defender'));
-      }
-    });
-    return pokemon;
+  initialyzeDefender(defender): Pokemon {
+    return this.pokemons.find(x => defender === x._name);
   }
 
   /**
@@ -108,37 +80,48 @@ export class BattleServiceService {
     }
   }
 
-  onBattle(pokemon1: Pokemon, pokemon2: Pokemon): void {
+  onBattle(subscription: Subscription, pokemon1: Pokemon, pokemon2: Pokemon): void {
     const order = this.firstToAttack(pokemon1, pokemon2);
-    let attacker = order.attacker;
-    let defender = order.defender;
+    const attacker = order.attacker;
+    const defender = order.defender;
 
     this.isStarted.next(true);
     this.isOver.next(false);
 
-    // this.idInterval = window.setInterval(() => {
-    let specificAttack = attacker.selectRandomAttack();
-    this.logs.push(' > ' + attacker._name.toUpperCase() + ' utilise ' + specificAttack._name.toUpperCase() + ' !');
-    specificAttack._damage = this.calculateAttackRealValue(attacker, defender, specificAttack);
-    defender.hitByAttack(specificAttack);
-    this.logs.push('> ' + defender._name.toUpperCase() + ' perd ' + specificAttack._damage + ' PV<br/>');
+    if (attacker._pv > 0 && defender._pv > 0) {
+      const specificAttack = attacker.selectRandomAttack();
+      this.logs.push(' > ' + attacker._name.toUpperCase() + ' utilise ' + specificAttack._name.toUpperCase() + ' !');
+      specificAttack._damage = this.calculateAttackRealValue(attacker, defender, specificAttack);
+      defender.hitByAttack(specificAttack);
+      this.logs.push('> ' + defender._name.toUpperCase() + ' perd ' + specificAttack._damage + ' PV<br/>');
 
-    this.logs.push('----------------------');
+      this.logs.push('----------------------');
+    }
 
-    specificAttack = defender.selectRandomAttack();
-    this.logs.push(' > ' + defender._name.toUpperCase() + ' utilise ' + specificAttack._name.toUpperCase() + ' !');
-    specificAttack._damage = this.calculateAttackRealValue(defender, attacker, specificAttack);
-    attacker.hitByAttack(specificAttack);
-    this.logs.push('> ' + attacker._name.toUpperCase() + ' perd ' + specificAttack._damage + ' PV');
+    if (attacker._pv > 0 && defender._pv > 0) {
+      const specificAttack = defender.selectRandomAttack();
+      this.logs.push(' > ' + defender._name.toUpperCase() + ' utilise ' + specificAttack._name.toUpperCase() + ' !');
+      specificAttack._damage = this.calculateAttackRealValue(defender, attacker, specificAttack);
+      attacker.hitByAttack(specificAttack);
+      this.logs.push('> ' + attacker._name.toUpperCase() + ' perd ' + specificAttack._damage + ' PV');
 
-    this.logs.push('==================================');
+      this.logs.push('==================================');
+    }
 
+    this.cancelTime(subscription, attacker, defender);
   }
 
-  stop(): void {
-    clearInterval(this.idInterval);
+  cancelTime(subscription: Subscription, attacker, defender) {
+    if (attacker._pv <= 0 || defender._pv <= 0) {
+      const looser: string = this.getResult(attacker, defender).looser._name;
+      this.addLog(' > ' + looser.toUpperCase() + ' est KO !');
+      const winner: string = this.getResult(attacker, defender).winner._name;
+      this.addLog(' > ' + winner.toUpperCase() + ' a gagné !');
+      this.isStarted.next(false);
+      this.isOver.next(true);
+      subscription.unsubscribe();
+    }
   }
-
 
   getLogs(): string[] {
     return this.logs;
@@ -152,14 +135,6 @@ export class BattleServiceService {
     this.logs = Array<string>();
   }
 
-
-  SwitchPokemon(attacker: Pokemon, defender: Pokemon) {
-    const temp = attacker;
-    attacker = defender;
-    defender = temp;
-    return { attacker, defender };
-  }
-
   /**
    * retourne le perdant du combat
    * @param pokemon1
@@ -168,7 +143,7 @@ export class BattleServiceService {
    */
   public getResult(pokemon1: Pokemon, pokemon2: Pokemon): { winner, looser } {
     return {
-      winner: (pokemon1._pv >= pokemon2._pv) ? pokemon1 : pokemon2,
+      winner: (pokemon1._pv > pokemon2._pv) ? pokemon1 : pokemon2,
       looser: (pokemon1._pv < pokemon2._pv) ? pokemon1 : pokemon2
     };
   }

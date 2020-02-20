@@ -1,9 +1,8 @@
-import { BattleServiceService } from './../service/battle-service.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import Attack from '../model/attack/attack';
 import Pokemon from '../model/pokemon/pokemon';
 import { PokemonInterface } from '../pokemon-interface';
+import { BattleServiceService } from './../service/battle-service.service';
 
 @Component({
   selector: 'app-choice',
@@ -23,7 +22,6 @@ export class ChoiceComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    localStorage.clear();
     this.getAllPokemons();
   }
 
@@ -68,9 +66,9 @@ export class ChoiceComponent implements OnInit {
     }
 
     if (2 === this.pokemonsSelected.length) {
-      this.router.navigate(['flightArena']);
+
       const pokemons = this.pokemonsSelected.map(this.mapToName);
-      this.battleService.dataPokemons.next(pokemons);
+      this.router.navigate(['flightArena/' + pokemons[0] + '/' + pokemons[1]]);
     }
   }
 }

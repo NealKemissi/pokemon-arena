@@ -1,34 +1,41 @@
-import { Component, OnInit } from '@angular/core';
-import { interval } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { interval, Subscription } from 'rxjs';
 import Pokemon from '../model/pokemon/pokemon';
 import { BattleServiceService } from '../service/battle-service.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-fight-arena',
   templateUrl: './fight-arena.component.html',
   styleUrls: ['./fight-arena.component.css']
 })
-export class FightArenaComponent implements OnInit {
+export class FightArenaComponent implements OnInit, OnDestroy {
 
   Attacker: Pokemon;
   Defender: Pokemon;
 
   idInterval: any;
-  infos_battle: string = "";
+  infos_battle: string = '';
   isStarted = false;
   isOver = false;
   looser: Pokemon;
   logs = [];
-  begin : Date;
-  end : Date;
+  begin: Date;
+  end: Date;
+
+  private subscription: Subscription;
+
+  private attacker: string = this.route.snapshot.paramMap.get('attacker');
+  private defender: string = this.route.snapshot.paramMap.get('defender');
 
   constructor(
-    public battle_service: BattleServiceService
+    private battle_service: BattleServiceService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.Attacker = this.battle_service.initialyzeAttacker();
-    this.Defender = this.battle_service.initialyzeDefender();
+    this.Attacker = this.battle_service.initialyzeAttacker(this.attacker);
+    this.Defender = this.battle_service.initialyzeDefender(this.defender);
   }
 
 
@@ -52,34 +59,32 @@ export class FightArenaComponent implements OnInit {
       .subscribe(data => {
         this.isOver = data;
       });
-    const a = interval(350).subscribe(data => {
-      this.battle_service.onBattle(this.Attacker, this.Defender);
-      if (this.Attacker._pv <= 0 || this.Defender._pv <= 0) {
-        a.unsubscribe();
-        let looser: string = this.battle_service.getResult(this.Attacker, this.Defender).looser._name;
-        this.battle_service.addLog(' > ' + looser.toUpperCase() + ' est KO !');
-        let winner: string = this.battle_service.getResult(this.Attacker, this.Defender).winner._name;
-        this.battle_service.addLog(' > ' + winner.toUpperCase() + ' a gagné !');
-        this.battle_service.isStarted.next(false);
-        this.battle_service.isOver.next(true);
-      }
-    });
+
+    this.subscription = interval(1000)
+      .subscribe(() => {
+        this.battle_service.onBattle(this.subscription, this.Attacker, this.Defender);
+      });
 
     this.logs = this.battle_service.getLogs();
     this.end = new Date();
   }
 
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+
   stop(): void {
-    this.battle_service.stop();
+    this.subscription.unsubscribe();
   }
 
   reset(): void {
     this.begin = undefined;
     this.end = undefined;
     this.battle_service.clearLogs();
-    this.Attacker = this.battle_service.initialyzeAttacker();
-    this.Defender = this.battle_service.initialyzeDefender();
+    this.Attacker = this.battle_service.initialyzeAttacker(this.attacker);
+    this.Defender = this.battle_service.initialyzeDefender(this.defender);
     this.launch();
   }
 }
