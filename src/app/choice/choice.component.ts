@@ -12,36 +12,8 @@ import { PokemonInterface } from '../pokemon-interface';
 })
 export class ChoiceComponent implements OnInit {
 
-  attacksPokemon1: Array<Attack> = [
-    new Attack('Lance-flamme', 50),
-    new Attack("Ultralaser", 20),
-    new Attack("Rapace", 35),
-    new Attack("Dracochoc", 30)
-  ];
-  attacksPokemon2: Array<Attack> = [
-    new Attack("Ball'Ombre", 50),
-    new Attack("Poing Ombre", 20),
-    new Attack("Dévorêve", 35),
-    new Attack("Vibrobscure", 30)
-  ];
 
-
-  pokemons = [
-    new Pokemon('Dracaufeu', 50, 100, this.attacksPokemon1, 50, 70, 70, '../../assets/img/dracaufeu_face.png'),
-    new Pokemon('Ectoplasma', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/gengar-sprite-png-2.gif'),
-    new Pokemon('Ectoplasma', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/dracaufeu.png'),
-    new Pokemon('Ectoplasma', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/dracaufeu.png'),
-    new Pokemon('Ectoplasma', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/dracaufeu.png'),
-    new Pokemon('Ectoplasma', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/dracaufeu.png'),
-    new Pokemon('Ectoplasma', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/dracaufeu.png'),
-    new Pokemon('Ectoplasma', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/dracaufeu.png'),
-    new Pokemon('Ectoplasma', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/dracaufeu.png'),
-    new Pokemon('Ectoplasma', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/dracaufeu.png'),
-    new Pokemon('Ectoplasma', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/dracaufeu.png'),
-    new Pokemon('Ectoplasma', 42, 100, this.attacksPokemon2, 50, 70, 70, '../../assets/img/dracaufeu.png')
-  ];
-
-  pokemonsList = [];
+  pokemonsList: Array<PokemonInterface> = [];
 
   pokemonsSelected = [];
 
@@ -55,7 +27,7 @@ export class ChoiceComponent implements OnInit {
   }
 
   private getAllPokemons() {
-     this.pokemonsList = this.pokemons.map(this.mapPokemonToPokemonInterface);
+     this.pokemonsList = this.battleService.pokemons.map(this.mapPokemonToPokemonInterface);
   }
 
   private mapPokemonToPokemonInterface(pokemon: Pokemon): PokemonInterface {
