@@ -17,16 +17,16 @@ export class BattleServiceService {
   public dataPokemons: BehaviorSubject<Array<string>> = new BehaviorSubject<Array<string>>([]);
 
   attacksPokemon1: Array<Attack> = [
-    new Attack('Lance-flamme', 50),
-    new Attack("Ultralaser", 20),
-    new Attack("Rapace", 35),
-    new Attack("Dracochoc", 30)
+    new Attack('Vive-attaque', 50),
+    new Attack("Morsure", 20),
+    new Attack("Ultralaser", 35),
+    new Attack("Plaquage", 30)
   ];
   attacksPokemon2: Array<Attack> = [
-    new Attack("Ball'Ombre", 50),
-    new Attack("Poing Ombre", 20),
-    new Attack("Dévorêve", 35),
-    new Attack("Vibrobscure", 30)
+    new Attack('Vive-attaque', 50),
+    new Attack("Morsure", 20),
+    new Attack("Ultralaser", 35),
+    new Attack("Plaquage", 30)
   ];
 
   pokemons = [

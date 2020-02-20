@@ -12,6 +12,7 @@ import { InfosComponent } from './infos/infos.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { BattleServiceService } from './service/battle-service.service';
 import { ChoiceComponent } from './choice/choice.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ChoiceComponent } from './choice/choice.component';
     MatDialogModule,
     AppRoutingModule,
     MatButtonModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [
     BattleServiceService
