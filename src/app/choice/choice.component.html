@@ -4,7 +4,7 @@
       *ngFor="let pokemon of pokemonsList" (mouseover)="zoom($event, pokemon)" (mouseleave)="dezoom($event, pokemon)">
       <img src="{{pokemon._image}}" alt="Avatar" class="cardImage">
       <div>
-        <h4><b>NOM : {{pokemon._name}}</b></h4>
+        <h4><b>{{pokemon._name}}</b></h4>
         <p>PV : {{pokemon._pv}}</p>
       </div>
     </div>

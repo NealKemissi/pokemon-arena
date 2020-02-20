@@ -1,3 +1,4 @@
+import { BattleServiceService } from './../service/battle-service.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import Attack from '../model/attack/attack';
@@ -45,7 +46,8 @@ export class ChoiceComponent implements OnInit {
   pokemonsSelected = [];
 
   constructor(
-    private router: Router
+    private router: Router,
+    private battleService: BattleServiceService
   ) { }
 
   ngOnInit(): void {
@@ -70,8 +72,12 @@ export class ChoiceComponent implements OnInit {
     };
   }
 
+  private mapToName(pokemon: PokemonInterface) {
+    return pokemon._name;
+  }
+
   zoom(e, pokemon: PokemonInterface) {
-    if (this.pokemonsSelected.length < 2) {
+    if (this.pokemonsSelected.length < 2 && !this.pokemonsSelected.includes(pokemon)) {
       pokemon._class = 'carMouseOuver';
     }
   }
@@ -90,6 +96,8 @@ export class ChoiceComponent implements OnInit {
 
     if (2 === this.pokemonsSelected.length) {
       this.router.navigate(['flightArena']);
+      const pokemons = this.pokemonsSelected.map(this.mapToName);
+      this.battleService.dataPokemons.next(pokemons);
     }
   }
 }

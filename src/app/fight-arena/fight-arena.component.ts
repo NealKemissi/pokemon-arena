@@ -22,7 +22,6 @@ export class FightArenaComponent implements OnInit {
   logs = [];
 
   constructor(
-    public dialog: MatDialog,
     public battle_service: BattleServiceService
   ) { }
 
@@ -61,5 +60,9 @@ export class FightArenaComponent implements OnInit {
   }
 
   reset(): void {
+    this.logs = [];
+    this.Attacker = this.battle_service.initialyzeAttacker();
+    this.Defender = this.battle_service.initialyzeDefender();
+    this.launch();
   }
 }

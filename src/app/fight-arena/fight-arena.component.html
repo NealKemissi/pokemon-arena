@@ -11,7 +11,6 @@
 
     <mat-grid-tile>
       <mat-list  class="infoBottom">
-        <p><b>Attaquant</b></p>
         <p> <b>NOM </b> : {{Attacker._name}}</p>
         <p [ngClass]="{pvStyleActive: this.Attacker._pv > 0, pvStyleInactive: this.Attacker._pv <= 0}"> <b>PV </b> : {{Attacker._pv}}</p>
         <p> <b>VITESSE </b> : {{Attacker._speed}}</p>
@@ -23,7 +22,6 @@
 
     <mat-grid-tile>
       <mat-list  class="infoBottom">
-        <p><b>Défenseur</b></p>
         <p> <b>NOM </b> : {{Defender._name}}</p>
         <p [ngClass]="{pvStyleActive: this.Defender._pv > 0, pvStyleInactive: this.Defender._pv <= 0}"> <b>PV </b> : {{Defender._pv}}</p>
         <p> <b>VITESSE </b> : {{Defender._speed}}</p>

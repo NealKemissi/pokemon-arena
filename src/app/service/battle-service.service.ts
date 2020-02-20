@@ -13,7 +13,9 @@ export class BattleServiceService {
   public isStarted: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   public isOver: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  private idInterval;
+  public dataPokemons: BehaviorSubject<Array<string>> = new BehaviorSubject<Array<string>>([]);
+
+  private idInterval: number;
 
   constructor() { }
 
@@ -24,7 +26,7 @@ export class BattleServiceService {
       new Attack("Rapace", 35),
       new Attack("Dracochoc", 30)
     ];
-    return new Pokemon("Dracaufeu", 50, 100, attacksPokemon1);
+    return new Pokemon("Dracaufeu", 50, 50, attacksPokemon1);
   }
 
   initialyzeDefender(): Pokemon {
@@ -34,7 +36,7 @@ export class BattleServiceService {
       new Attack("Dévorêve", 35),
       new Attack("Vibrobscure", 30)
     ];
-    return new Pokemon("Ectoplasma", 42, 100, attacksPokemon2);
+    return new Pokemon("Ectoplasma", 42, 50, attacksPokemon2);
   }
 
   /**
