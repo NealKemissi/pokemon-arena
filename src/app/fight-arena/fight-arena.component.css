@@ -64,6 +64,11 @@ body {
   width: 100%;
   height: 100%;
   overflow: auto;
+  background-color: white;
+  transform:rotateX(180deg);
+}
+.logs-battle {
+  transform:rotateX(180deg);
 }
 
 .buttonContainer {

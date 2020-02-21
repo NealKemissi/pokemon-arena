@@ -19,9 +19,11 @@
 
   <mat-grid-tile>
     <div class ="infos-battle">
-      <span *ngIf="begin"> > DEBUT : {{ begin | date:'shortTime'}}</span>
-      <app-infos [infos_battle]="logs"></app-infos>
-      <span *ngIf="end"> > FIN : {{ end | date:'shortTime'}}</span>
+      <div class="logs-battle">
+        <span *ngIf="begin"> > DEBUT : {{ begin | date:'shortTime'}}</span>
+        <app-infos [infos_battle]="logs"></app-infos>
+        <span *ngIf="end"> > FIN : {{ end | date:'shortTime'}}</span>
+      </div>
     </div>
   </mat-grid-tile>
   </mat-grid-list>
