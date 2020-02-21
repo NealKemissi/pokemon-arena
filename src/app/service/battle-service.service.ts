@@ -47,11 +47,15 @@ export class BattleServiceService {
   constructor() { }
 
   initialyzeAttacker(attacker): Pokemon {
-    return this.pokemons.find(x => attacker === x._name);
+    const pokemon: Pokemon = this.pokemons.find(x => attacker === x._name);
+    pokemon._pv = 100;
+    return pokemon;
   }
 
   initialyzeDefender(defender): Pokemon {
-    return this.pokemons.find(x => defender === x._name);
+    const pokemon: Pokemon = this.pokemons.find(x => defender === x._name);
+    pokemon._pv = 100;
+    return pokemon;
   }
 
   /**
