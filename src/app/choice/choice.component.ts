@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import Pokemon from '../model/pokemon/pokemon';
 import { PokemonInterface } from '../pokemon-interface';
+import { BattleServiceService } from '../service/battle-service.service';
+import { PokemonApiService } from '../service/pokemon-api.service';
 
 @Component({
   selector: 'app-choice',
