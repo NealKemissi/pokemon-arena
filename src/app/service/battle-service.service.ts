@@ -53,29 +53,31 @@ export class BattleServiceService {
    * @param pokemon2 
    */
   onBattle(subscription: Subscription, pokemon1: Pokemon, pokemon2: Pokemon): void {
-    const order = this.firstToAttack(pokemon1, pokemon2);
-    const attacker = order.attacker;
-    const defender = order.defender;
+    let order = this.firstToAttack(pokemon1, pokemon2);
+    let attacker = order.attacker;
+    let defender = order.defender;
 
     this.isStarted.next(true);
     this.isOver.next(false);
 
     if (attacker._pv > 0 && defender._pv > 0) {
-      const specificAttack = attacker.selectRandomAttack();
+      let specificAttack = attacker.selectRandomAttack();
       this.logs.push(' > ' + attacker._name.toUpperCase() + ' utilise ' + specificAttack._name.toUpperCase() + ' !');
-      specificAttack._damage = this.calculateAttackRealValue(attacker, defender, specificAttack);
-      defender.hitByAttack(specificAttack);
-      this.logs.push('> ' + defender._name.toUpperCase() + ' perd ' + specificAttack._damage + ' PV<br/>');
+      //specificAttack._damage = this.calculateAttackRealValue(attacker, defender, specificAttack);
+      defender.modifyHealth(this.calculateAttackRealValue(attacker, defender, specificAttack))
+      //defender.hitByAttack(specificAttack);
+      this.logs.push('> ' + defender._name.toUpperCase() + ' perd ' + this.calculateAttackRealValue(attacker, attacker, specificAttack) + ' PV');
 
       this.logs.push('----------------------');
     }
 
     if (attacker._pv > 0 && defender._pv > 0) {
-      const specificAttack = defender.selectRandomAttack();
+      let specificAttack = defender.selectRandomAttack();
       this.logs.push(' > ' + defender._name.toUpperCase() + ' utilise ' + specificAttack._name.toUpperCase() + ' !');
-      specificAttack._damage = this.calculateAttackRealValue(defender, attacker, specificAttack);
-      attacker.hitByAttack(specificAttack);
-      this.logs.push('> ' + attacker._name.toUpperCase() + ' perd ' + specificAttack._damage + ' PV');
+      //specificAttack._damage = this.calculateAttackRealValue(defender, attacker, specificAttack);
+      attacker.modifyHealth(this.calculateAttackRealValue(defender, attacker, specificAttack))
+      //attacker.hitByAttack(specificAttack);
+      this.logs.push('> ' + attacker._name.toUpperCase() + ' perd ' + this.calculateAttackRealValue(defender, attacker, specificAttack) + ' PV');
 
       this.logs.push('==================================');
     }
