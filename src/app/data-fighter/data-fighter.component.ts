@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import Pokemon from '../model/pokemon/pokemon';
 
 @Component({
@@ -7,7 +7,7 @@ import Pokemon from '../model/pokemon/pokemon';
   styleUrls: ['./data-fighter.component.css']
 })
 export class DataFighterComponent implements OnInit {
-
+  
   @Input() pokemonData : Pokemon;
 
   constructor() { }
@@ -15,5 +15,4 @@ export class DataFighterComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.pokemonData);
   }
-
 }

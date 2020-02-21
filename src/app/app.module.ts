@@ -3,6 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatListModule } from '@angular/material/list';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -27,6 +28,7 @@ import { DataFighterComponent } from './data-fighter/data-fighter.component';
   imports: [
     MatGridListModule,
     MatListModule,
+    MatProgressBarModule,
     BrowserModule,
     MatDialogModule,
     AppRoutingModule,

@@ -12,6 +12,7 @@ export default class Pokemon {
     public _level: number = 50,
     public _offensiveStat: number = 50,
     public _defensiveStat: number = 50,
+    public _maxPV?: number,
     public _sprite?: Sprite
   ) {
   }

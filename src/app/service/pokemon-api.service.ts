@@ -54,7 +54,7 @@ export class PokemonApiService {
       x => x.stat.name == 'defense'
     ).base_stat;
 
-    let pokemon = new Pokemon(pokemonApi.name, speed, pv, this.attacks, 20, attack, defense, new Sprite(pokemonApi.name));
+    let pokemon = new Pokemon(pokemonApi.name, speed, pv, this.attacks, 20, attack, defense, pv, new Sprite(pokemonApi.name));
     return pokemon;
   }
 }

@@ -2,6 +2,7 @@
       <p><b>{{pokemonData?._name | uppercase}}</b></p>
       <p [ngClass]="{pvStyleActive: this.pokemonData?._pv > 0, pvStyleInactive: this.pokemonData?._pv <= 0}"> 
         <b>PV </b><br/> {{pokemonData?._pv}} 
+        <mat-progress-bar mode="determinate" [value]="(this.pokemonData?._pv / this.pokemonData?._maxPV)*100"></mat-progress-bar>
     </p>
       <p> <b>VITESSE </b>{{pokemonData?._speed}}</p>
       <p> <b>OFFENSIVE </b> {{pokemonData?._offensiveStat}}</p>
