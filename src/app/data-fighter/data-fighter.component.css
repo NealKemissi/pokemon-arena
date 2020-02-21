@@ -1,0 +1,13 @@
+.infoBottom {
+    margin-top: -80px;
+    line-height: 14px;
+    margin-right: 40%;
+  }
+  
+  .pvStyleActive {
+    color: green;
+  }
+  
+  .pvStyleInactive {
+     color: red;
+  }

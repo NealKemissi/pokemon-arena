@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="choiceList">
+    <div class="card" [ngClass]="[pokemon._class]" (click)="selectPokemon(pokemon)"
+      *ngFor="let pokemon of pokemonsList" (mouseover)="zoom($event, pokemon)" (mouseleave)="dezoom($event, pokemon)">
+      <img src="{{pokemon._image}}" alt="Avatar" class="cardImage">
+      <div>
+        <h4><b>{{pokemon._name}}</b></h4>
+        <p>PV : {{pokemon._pv}}</p>
+        <p>Vitesse : {{pokemon._speed}}</p>
+        <p>Attaque : {{pokemon._offensiveStat}}</p>
+        <p>Defense : {{pokemon._defensiveStat}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  COPYRIGHTS Ⓒ 2020 - Réalisé par Angelo, Neal et Christopher
+</div>

@@ -1,0 +1,100 @@
+mat-grid-tile {
+  background: linear-gradient(#F8F7FC, #CCD6E0);
+}
+
+.title {
+  text-align: center;
+}
+
+.sprite-moves {
+  animation: MoveUpDown 1s linear infinite;
+  position: absolute;
+}
+
+.middle {
+  position: absolute;
+}
+@keyframes MoveUpDown {
+  0%, 100% {
+    bottom: 0;
+  }
+  50% {
+    bottom: 10px;
+  }
+}
+
+
+.container {
+  display: inline-block;
+  float: right;
+  background-color: red;
+  width: 50%;
+  height: 50%;
+}
+
+.dot {
+  height: 48px;
+  width: 487px;
+  background-color: #CCD6E0;
+  border-radius: 50%;
+  display: inline-block;
+  -webkit-transform: skewX(-82deg);
+  transform: skewX(7deg);
+  margin-top: 105px;
+  position: absolute;
+  box-shadow: 8px 8px 0px #aaa;
+}
+
+body {
+  background: linear-gradient(#F8F7FC, #CCD6E0);
+}
+
+.example-button-row button,
+.example-button-row a {
+  margin-right: 8px;
+}
+
+.buttonGo {
+  color: #FFD700;
+  font-size: 23px;
+  font-weight: bold;
+}
+
+.infos-battle {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: white;
+  transform:rotateX(180deg);
+}
+.logs-battle {
+  transform:rotateX(180deg);
+}
+
+.buttonContainer {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.infoBottom {
+  margin-top: -80px;
+  line-height: 14px;
+  margin-right: 40%;
+}
+
+.pvStyleActive {
+  color: green;
+}
+
+.pvStyleInactive {
+   color: red;
+}
+
+.looser {
+  font-size: 62px;
+  color: red;
+  position: absolute;
+  top: 50%;
+  left: 28%;
+}
