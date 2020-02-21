@@ -11,7 +11,7 @@ import Sprite from '../model/pokemon/sprite';
 })
 export class PokemonApiService {
 
-  private baseUrl = 'http://pokeapi.co/api/v1/pokemon/';
+  private baseUrl = 'http://pokeapi.co/api/v2/pokemon/';
 
   private attacks: Array<Attack> = [
     new Attack('Quick Attack', 35),
@@ -37,7 +37,7 @@ export class PokemonApiService {
    * @param pokemonApi
    * @return le vrai pokemon
    */
-  createPokemon(attacks : Array<Attack>, pokemonApi: PokemonAPI) : Pokemon {
+  createPokemon(pokemonApi: PokemonAPI) : Pokemon {
     let speed = pokemonApi.stats.find(
       x => x.stat.name == 'speed'
     ).base_stat;
@@ -54,7 +54,7 @@ export class PokemonApiService {
       x => x.stat.name == 'defense'
     ).base_stat;
 
-    let pokemon = new Pokemon(pokemonApi.name, speed, pv, attacks, null, attack, defense, new Sprite(pokemonApi.name));
+    let pokemon = new Pokemon(pokemonApi.name, speed, pv, this.attacks, null, attack, defense, new Sprite(pokemonApi.name));
     return pokemon;
   }
 }
