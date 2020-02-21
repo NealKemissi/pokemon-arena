@@ -3,6 +3,8 @@ import { interval, Subscription } from 'rxjs';
 import Pokemon from '../model/pokemon/pokemon';
 import { BattleServiceService } from '../service/battle-service.service';
 import { ActivatedRoute } from '@angular/router';
+import { PokemonApiService } from '../service/pokemon-api.service';
+import {forkJoin} from 'rxjs';
 
 @Component({
   selector: 'app-fight-arena',
@@ -30,15 +32,13 @@ export class FightArenaComponent implements OnInit, OnDestroy {
 
   constructor(
     private battle_service: BattleServiceService,
+    private apiService : PokemonApiService,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.Attacker = this.battle_service.initialyzeAttacker(this.attacker);
-    this.Defender = this.battle_service.initialyzeDefender(this.defender);
+    this.loadPokemonsData(false);
   }
-
-
 
   /**
    * modifie les pv d'un pokemon
@@ -49,6 +49,9 @@ export class FightArenaComponent implements OnInit, OnDestroy {
     pokemon.modifyHealth(value);
   }
 
+  /**
+   * Lancement du combat
+   */
   launch(): void {
     this.begin = new Date();
     this.battle_service.getIsStarted()
@@ -71,7 +74,9 @@ export class FightArenaComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
 
@@ -79,12 +84,31 @@ export class FightArenaComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  /**
+   * Relance le combat
+   */
   reset(): void {
     this.begin = undefined;
     this.end = undefined;
     this.battle_service.clearLogs();
-    this.Attacker = this.battle_service.initialyzeAttacker(this.attacker);
-    this.Defender = this.battle_service.initialyzeDefender(this.defender);
-    this.launch();
+    this.loadPokemonsData(true);
   }
+
+  /**
+   * Initialise les deux pokemon
+   * @param resetBattle 
+   */
+  loadPokemonsData(resetBattle : Boolean) {
+    forkJoin(
+      this.apiService.getPokemon(this.attacker),
+      this.apiService.getPokemon(this.defender),
+    ).subscribe(data => {
+      this.Attacker = this.apiService.createPokemon(data[0]);
+      this.Defender = this.apiService.createPokemon(data[1]);
+      if(resetBattle) {
+        this.launch();
+      }
+    });
+  }
+
 }

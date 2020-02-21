@@ -6,12 +6,12 @@ export default class Pokemon {
   /** constructeur **/
   constructor(
     public _name?: string,
-    public _speed?: number,
+    public _speed: number = 50,
     public _pv?: number,
     public _attacks?: Array<Attack>,//= new Array(4)
     public _level: number = 50,
-    public _offensiveStat: number = 70,
-    public _defensiveStat: number = 70,
+    public _offensiveStat: number = 50,
+    public _defensiveStat: number = 50,
     public _sprite?: Sprite
   ) {
   }
