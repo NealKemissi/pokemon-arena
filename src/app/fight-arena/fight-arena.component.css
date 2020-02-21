@@ -11,6 +11,9 @@ mat-grid-tile {
   position: absolute;
 }
 
+.middle {
+  position: absolute;
+}
 @keyframes MoveUpDown {
   0%, 100% {
     bottom: 0;
