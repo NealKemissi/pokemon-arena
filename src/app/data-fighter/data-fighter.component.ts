@@ -6,14 +6,14 @@ import Pokemon from '../model/pokemon/pokemon';
   templateUrl: './data-fighter.component.html',
   styleUrls: ['./data-fighter.component.css']
 })
-export class DataFighterComponent {
+export class DataFighterComponent implements OnInit {
 
-  @Input() pokemon : Pokemon;
+  @Input() pokemonData : Pokemon;
 
   constructor() { }
 
-  ngOnChanges(): void {
-    console.log(this.pokemon)
+  ngOnInit(): void {
+    console.log(this.pokemonData);
   }
 
 }

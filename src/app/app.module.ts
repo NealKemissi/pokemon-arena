@@ -13,6 +13,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { BattleServiceService } from './service/battle-service.service';
 import { ChoiceComponent } from './choice/choice.component';
 import { HttpClientModule } from '@angular/common/http';
+import { DataFighterComponent } from './data-fighter/data-fighter.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HttpClientModule } from '@angular/common/http';
     FightArenaComponent,
     InfosComponent,
     NavbarComponent,
-    ChoiceComponent
+    ChoiceComponent,
+    DataFighterComponent
   ],
   imports: [
     MatGridListModule,
@@ -34,6 +36,9 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   providers: [
     BattleServiceService
+  ],
+  exports: [
+    DataFighterComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent]
