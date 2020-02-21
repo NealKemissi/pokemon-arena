@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import Attack from '../model/attack/attack';
 import Pokemon from '../model/pokemon/pokemon';
 import Sprite from '../model/pokemon/sprite';
+import { PokemonApiService } from './pokemon-api.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,47 +17,8 @@ export class BattleServiceService {
 
   public dataPokemons: BehaviorSubject<Array<string>> = new BehaviorSubject<Array<string>>([]);
 
-  attacksPokemon1: Array<Attack> = [
-    new Attack('Vive-attaque', 50),
-    new Attack("Morsure", 20),
-    new Attack("Ultralaser", 35),
-    new Attack("Plaquage", 30)
-  ];
-  attacksPokemon2: Array<Attack> = [
-    new Attack('Vive-attaque', 50),
-    new Attack("Morsure", 20),
-    new Attack("Ultralaser", 35),
-    new Attack("Plaquage", 30)
-  ];
 
-  pokemons = [
-    new Pokemon('Dracaufeu', 50, 100, this.attacksPokemon1, 50, 70, 70, new Sprite('charizard')),
-    new Pokemon('Ectoplasma', 42, 100, this.attacksPokemon2, 50, 70, 70, new Sprite('gengar')),
-    new Pokemon('Eevee', 42, 100, this.attacksPokemon2, 50, 70, 70, new Sprite('eevee')),
-    new Pokemon('Pikachu', 42, 100, this.attacksPokemon2, 50, 70, 70, new Sprite('pikachu')),
-    new Pokemon('Snorlax', 42, 100, this.attacksPokemon2, 50, 70, 70, new Sprite('snorlax')),
-    new Pokemon('Tortank', 42, 100, this.attacksPokemon2, 50, 70, 70, new Sprite('blastoise')),
-    new Pokemon('Weezing', 42, 100, this.attacksPokemon2, 50, 70, 70, new Sprite('weezing')),
-    new Pokemon('Leviator', 42, 100, this.attacksPokemon2, 50, 70, 70, new Sprite('gyrados')),
-    new Pokemon('Onix', 42, 100, this.attacksPokemon2, 50, 70, 70, new Sprite('onix')),
-    new Pokemon('Machamp', 42, 100, this.attacksPokemon2, 50, 70, 70, new Sprite('machamp')),
-    new Pokemon('Noadkoko', 42, 100, this.attacksPokemon2, 50, 70, 70, new Sprite('exeggutor')),
-    new Pokemon('Venusaur', 42, 100, this.attacksPokemon2, 50, 70, 70, new Sprite('venusaur'))
-  ];
-
-  constructor() { }
-
-  initialyzeAttacker(attacker): Pokemon {
-    const pokemon: Pokemon = this.pokemons.find(x => attacker === x._name);
-    pokemon._pv = 100;
-    return pokemon;
-  }
-
-  initialyzeDefender(defender): Pokemon {
-    const pokemon: Pokemon = this.pokemons.find(x => defender === x._name);
-    pokemon._pv = 100;
-    return pokemon;
-  }
+  constructor(private apiService : PokemonApiService) { }
 
   /**
    * calcul la valeur de l'attaque
@@ -84,6 +46,12 @@ export class BattleServiceService {
     }
   }
 
+  /**
+   * Déroulement du combat
+   * @param subscription 
+   * @param pokemon1 
+   * @param pokemon2 
+   */
   onBattle(subscription: Subscription, pokemon1: Pokemon, pokemon2: Pokemon): void {
     const order = this.firstToAttack(pokemon1, pokemon2);
     const attacker = order.attacker;
@@ -115,6 +83,12 @@ export class BattleServiceService {
     this.cancelTime(subscription, attacker, defender);
   }
 
+  /**
+   * Stop le chrono
+   * @param subscription 
+   * @param attacker 
+   * @param defender 
+   */
   cancelTime(subscription: Subscription, attacker, defender) {
     if (attacker._pv <= 0 || defender._pv <= 0) {
       const looser: string = this.getResult(attacker, defender).looser._name;
@@ -127,10 +101,17 @@ export class BattleServiceService {
     }
   }
 
+  /**
+   * @return les logs
+   */
   getLogs(): string[] {
     return this.logs;
   }
 
+  /**
+   * Ajout un message
+   * @param message 
+   */
   addLog(message: string): void {
     this.logs.push(message);
   }
