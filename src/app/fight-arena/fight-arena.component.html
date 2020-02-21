@@ -14,10 +14,15 @@
 
     <mat-grid-tile>
     <app-data-fighter [pokemonData]="Attacker"></app-data-fighter>
+    <app-data-fighter [pokemonData]="Defender"></app-data-fighter>
   </mat-grid-tile>
 
   <mat-grid-tile>
-    <app-data-fighter [pokemonData]="Defender"></app-data-fighter>
+    <div class ="infos-battle">
+      <span *ngIf="begin"> > DEBUT : {{ begin | date:'shortTime'}}</span>
+      <app-infos [infos_battle]="logs"></app-infos>
+      <span *ngIf="end"> > FIN : {{ end | date:'shortTime'}}</span>
+    </div>
   </mat-grid-tile>
   </mat-grid-list>
 
@@ -32,11 +37,6 @@
   <button mat-raised-button color="warn" class="buttonGo" (click)="reset()">Reset</button>
 </div>
 
-<div>
-  <span *ngIf="begin"> > DEBUT : {{ begin | date:'shortTime'}}</span>
-  <app-infos [infos_battle]="logs"></app-infos>
-  <span *ngIf="end"> > FIN : {{ end | date:'shortTime'}}</span>
-</div>
 
 <div *ngIf="looser" class="looser">
  Game Over : {{looser?._name}}
