@@ -1,0 +1,8 @@
+<mat-list  class="infoBottom">
+      <p><b>{{pokemon?._name | uppercase}}</b></p>
+      <p [ngClass]="{pvStyleActive: this.pokemon?._pv > 0, pvStyleInactive: this.pokemon?._pv <= 0}"> <b>PV </b><br/> {{pokemon?._pv}}</p>
+      <p> <b>VITESSE </b>{{pokemon?._speed}}</p>
+      <p> <b>OFFENSIVE </b> {{pokemon?._offensiveStat}}</p>
+      <p> <b>DEFENSIVE </b>{{pokemon?._defensiveStat}}</p>
+</mat-list>
+
