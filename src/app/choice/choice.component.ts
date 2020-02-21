@@ -14,7 +14,7 @@ export class ChoiceComponent implements OnInit {
 
 
   pokemonsList: Array<PokemonInterface> = [];
-  list : string[] = ['charizard', 'venusaur','blastoise','pikachu', 'eevee', 'gengar', 'snorlax', 'weezing', 'onix', 'machamp', 'exeggutor', 'gyarados'];
+  list: string[] = ['charizard', 'venusaur', 'blastoise', 'pikachu', 'eevee', 'gengar', 'snorlax', 'weezing', 'onix', 'machamp', 'exeggutor', 'gyarados'];
 
   pokemonsSelected = [];
 
@@ -29,26 +29,21 @@ export class ChoiceComponent implements OnInit {
   }
 
   getAllPokemons() {
-    let pokemon : Pokemon;
-    let pokemon_list : Pokemon[] = [];
-    for(let i=0; i<this.list.length; i++){
+    let pokemon: Pokemon;
+    let pokemon_list: Pokemon[] = [];
+    for (let i = 0; i < this.list.length; i++) {
       this.apiService.getPokemon(this.list[i]).subscribe(
         data => {
           pokemon = this.apiService.createPokemon(data);
-          console.log(pokemon);
           pokemon_list.push(pokemon);
         }, error => {
           console.log(error);
         }, () => {
-          pokemon_list.map(this.mapPokemonToPokemonInterface);
-          this.pokemonsList  = (pokemon_list.map(this.mapPokemonToPokemonInterface));
+          this.pokemonsList = (pokemon_list.map(this.mapPokemonToPokemonInterface));
         }
-      )
+      );
     }
   }
-  // private getAllPokemons() {
-  //    this.pokemonsList = this.battleService.pokemons.map(this.mapPokemonToPokemonInterface);
-  // }
 
   private mapPokemonToPokemonInterface(pokemon: Pokemon): PokemonInterface {
     return {
